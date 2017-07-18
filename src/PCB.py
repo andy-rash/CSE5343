@@ -44,13 +44,13 @@ class PCB(object):
             if k == 'state':
                 if v not in self.__states.keys():
                     raise KeyError('given state invalid')
-            if k not in accepted:
+            if k not in self.__accepted:
                 raise ValueError('given variable not acceptable')
             setattr(self, '_'+k, v)
 
         # make sure that all options have been passed,
         # else, raise an exception
-        for item in accepted:
+        for item in self.__accepted:
             if item == 'state':
                 continue
             if '_'+item not in self.__dict__.keys():
