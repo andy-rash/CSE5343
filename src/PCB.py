@@ -87,7 +87,35 @@ class PCB(object):
         if new_st in self.__states.keys():
             self._state = self.__states[new_st]
 
+    def __eq__(self, comp):
+        """ Compare equality of two PCBs. """
+        return self._pid == comp.pid
+
+    def __ge__(self, comp):
+        """ Check greater than or equal to. """
+        return not self.__lt__(comp)
+
+    def __gt__(self, comp):
+        """ Check greater than. """
+        return self._pid > comp.pid
+
+    def __le__(self, comp):
+        """ Check less than or equal to. """
+        return not self.__gt__(comp)
+
+    def __lt__(self, comp):
+        """ Check less than. """
+        return self._pid < comp.pid
+
+    def __ne__(self, comp):
+        """ Compare inequality of two PCBs. """
+        return not self.__eq__(comp)
+
     def __repr__(self):
         """ Return representation of PCB. """
         return '<PCB PID=%r state=%r>' % (self._pid, self._state)
+
+    def __str__(self):
+        """ Return string representation of PCB. """
+        return str(self._pid)
 
