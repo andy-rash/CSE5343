@@ -106,9 +106,33 @@ class Node(NodeBase):
         """ Return representation of Node. """
         return '<Node object: %r>' % self._value 
 
+    # Comparators
+
     def __eq__(self, comp):
         """ Compare equality of two Nodes. """
-        return self._next == comp.next and self._prev == comp._prev
+        return self._next == comp.next and \
+               self._prev == comp.prev and \
+               self._value == comp.value
+
+    def __ge__(self, comp):
+        """ Check greater than or equal to. """
+        return not self.__lt__(comp)
+
+    def __gt__(self, comp):
+        """ Check greater than. """
+        return self._value > comp.value
+
+    def __le__(self, comp):
+        """ Check less than or equal to. """
+        return not self.__gt__(comp)
+
+    def __lt__(self, comp):
+        """ Check less than. """
+        return self._value < comp.value
+
+    def __ne__(self, comp):
+        """ Compare inequality of two Nodes. """
+        return not self.__eq__(comp)
 
 class List(object):
     """ Class implementing the linked list. """
