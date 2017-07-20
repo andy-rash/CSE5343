@@ -166,7 +166,6 @@ class List(object):
         if itr is not None: 
             itr.next.prev = itr.prev
             itr.prev.next = itr.next
-            del itr
             self._size -=  1
 
     @property
@@ -220,6 +219,8 @@ class List(object):
             self._itr += 1
             return itr
         else:
+            self._curr = None
+            self._itr = 0
             raise StopIteration()
 
     def pop_back(self):
@@ -231,7 +232,6 @@ class List(object):
             new_last.next = self._tail
             self._tail.prev = new_last
 
-            del last 
             self._size -= 1
 
     def pop_front(self):
@@ -244,7 +244,6 @@ class List(object):
             new_first.prev = self._head
             self._head.next = new_first
 
-            del first
             self._size -= 1
 
     def push_back(self, value):
@@ -280,6 +279,13 @@ class List(object):
             self._head.next = new_node
             
             self._size += 1
+
+    def sort(self):
+        """ Sort the List. """
+        l = sorted(self)
+        self.clear()
+        for item in l:
+            self.push_back(item.value)
 
     @property
     def size(self):
