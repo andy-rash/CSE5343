@@ -26,8 +26,6 @@ class NodeBase(object):
         self._next = next
         self._prev = prev
 
-    # Getters
-
     @property
     def next(self):
         """ Return next NodeBase in List. """
@@ -38,8 +36,6 @@ class NodeBase(object):
         """ Return previous NodeBase in List. """
         return self._prev
 
-    # Setters
-
     @next.setter
     def next(self, val):
         """ Set next NodeBase in List. """
@@ -49,8 +45,6 @@ class NodeBase(object):
     def prev(self, val):
         """ Set previous NodeBase in List. """
         self._prev = val
-
-    # Utility functions
 
     def __repr__(self):
         """ Return representation of NodeBase. """
@@ -86,27 +80,19 @@ class Node(NodeBase):
         super(Node, self).__init__(next=next, prev=prev)
         self._value = value
 
-    # Getters
-
     @property
     def value(self):
         """ Return value encapsulated in Node. """
         return self._value
-
-    # Setters 
 
     @value.setter
     def value(self, val):
         """ Set value to be encapsulated by Node. """
         self._value = val
 
-    # Utitlity functions
-
     def __repr__(self):
         """ Return representation of Node. """
         return '<Node object: %r>' % self._value 
-
-    # Comparators
 
     def __eq__(self, comp):
         """ Compare equality of two Nodes. """
@@ -147,18 +133,23 @@ class List(object):
                 obj = List()
 
         """
+        self._curr = None
         self._head = NodeBase() 
+        self._itr = 0
         self._size = 0
         self._tail = NodeBase()
 
         self._head.next = self._tail
         self._tail.prev = self._head
 
+    def __iter__(self):
+        return self
+
     def at(self, loc=0):
         """ Return the Node at a given position in the List. """
         count = 0 
         itr = self.first
-        while count < loc and itr != self._tail:
+        while count < loc and itr.next is not None:
             count += 1
             itr = itr._next
 
@@ -172,8 +163,7 @@ class List(object):
     def delete(self, val):
         """ Delete the first instance of a given value. """
         itr = self.find(val)
-        if itr is not None:
-     
+        if itr is not None: 
             itr.next.prev = itr.prev
             itr.prev.next = itr.next
             del itr
@@ -186,15 +176,10 @@ class List(object):
 
     def find(self, val): 
         """ Find the first instance of a given value. """
-        itr = self.first
-        while itr != self._tail:
-
-            if itr.value == val:
-                break
-
-            itr = itr.next
-
-        return itr if  isinstance(itr, Node) else None
+        for item in self:
+            if item.value == val:
+                return item
+        return None
 
     @property
     def first(self):
@@ -223,6 +208,19 @@ class List(object):
         last = self._tail.prev
         first = self._head
         return last if last is not first else None
+
+    def next(self):
+        """ Return the next item for built-in iterable. """
+        if self._curr is None:
+            self._curr = self.first
+
+        if self._itr < self._size:
+            itr = self._curr
+            self._curr = itr.next
+            self._itr += 1
+            return itr
+        else:
+            raise StopIteration()
 
     def pop_back(self):
         """ Pop the last item from the List. """
@@ -287,25 +285,22 @@ class List(object):
     def size(self):
         """ Return the size of the List. """
         return self._size
-
+ 
     def __repr__(self): 
         """ Return representation of List. """
         if not self.size > 0:
             return ''
 
         count = 0
-        itr = self.first
         rep = ''
-        while itr != self._tail:
-
+        for item in self:
             if count == 0:
-                rep += str(itr.value)
+                rep += str(item.value)
             elif count == self.size - 1:
-                rep += ' <-> ' + str(itr.value)
+                rep += ' <-> ' + str(item.value)
             else:
-                rep += ' <-> ' + str(itr.value)
+                rep += ' <-> ' + str(item.value)
 
-            itr = itr.next
             count += 1
 
         return rep
