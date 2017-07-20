@@ -130,30 +130,6 @@ class List(object):
         self._head.next = self._tail
         self._tail.prev = self._head
 
-    @property
-    def empty(self):
-        """ Return whether the List is empty. """
-        return self._size == 0
-
-    @property
-    def first(self):
-        """ Return the first Node in the List. """
-        first = self._head.next
-        last = self._tail
-        return first if first is not last else None 
-
-    @property
-    def last(self):
-        """ Return the last Node in the List. """
-        last = self._tail.prev
-        first = self._head
-        return last if last is not first else None 
-
-    @property
-    def size(self):
-        """ Return the size of the List. """
-        return self._size
-
     def at(self, loc=0):
         """ Return the Node at a given position in the List. """
         count = 0 
@@ -179,6 +155,11 @@ class List(object):
             del itr
             self._size -=  1
 
+    @property
+    def empty(self):
+        """ Return whether the List is empty. """
+        return self._size == 0
+
     def find(self, val): 
         """ Find the first instance of a given value. """
         itr = self.first
@@ -190,6 +171,13 @@ class List(object):
             itr = itr.next
 
         return itr if  isinstance(itr, Node) else None
+
+    @property
+    def first(self):
+        """ Return the first Node in the List. """
+        first = self._head.next
+        last = self._tail
+        return first if first is not last else None
 
     def insert(self, val, loc=-1):
         """ Insert a value into a given location in the List. """
@@ -204,6 +192,13 @@ class List(object):
                 itr.prev.next = new_node
                 itr.prev = new_node
                 self._size += 1
+
+    @property
+    def last(self):
+        """ Return the last Node in the List. """
+        last = self._tail.prev
+        first = self._head
+        return last if last is not first else None
 
     def pop_back(self):
         """ Pop the last item from the List. """
@@ -263,6 +258,11 @@ class List(object):
             self._head.next = new_node
             
             self._size += 1
+
+    @property
+    def size(self):
+        """ Return the size of the List. """
+        return self._size
 
     def __repr__(self): 
         """ Return representation of List. """
