@@ -280,9 +280,9 @@ class List(object):
             
             self._size += 1
 
-    def sort(self):
+    def sort(self, key=lambda x: x):
         """ Sort the List. """
-        l = sorted(self)
+        l = sorted(self, key=key)
         self.clear()
         for item in l:
             self.push_back(item.value)
