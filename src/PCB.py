@@ -2,7 +2,7 @@
 class PCB(object):
     """ Class representing a process control block (PCB). """
 
-    def __init__(self, iterable=(), **kwargs): 
+    def __init__(self, iterable=(), state=000, **kwargs): 
         """
         Constructor
         
@@ -37,8 +37,9 @@ class PCB(object):
                          001: 'ready',
                          010: 'running',
                          011: 'waiting',
-                         100: 'terminated'} 
-      
+                         100: 'terminated'}
+        self._state = state
+
         # set class attributes, with proper exception handling 
         for k,v in iterable.iteritems():
             if k == 'state':
