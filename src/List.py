@@ -173,10 +173,10 @@ class List(object):
         """ Return whether the List is empty. """
         return self._size == 0
 
-    def find(self, val): 
+    def find(self, val, key=lambda x,y: x == y): 
         """ Find the first instance of a given value. """
         for item in self:
-            if item.value == val:
+            if key(item.value, val):
                 return item
         return None
 
