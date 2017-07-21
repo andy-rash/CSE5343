@@ -47,7 +47,10 @@ class PCB(object):
                     raise KeyError('given state invalid')
             if k not in self.__accepted:
                 raise ValueError('given variable not acceptable')
-            setattr(self, '_'+k, v)
+            try:
+                setattr(self, '_'+k, int(v))
+            except ValueError:
+                raise RuntimeError('PCBs must be initialized with integers only.')
 
         # make sure that all options have been passed,
         # else, raise an exception
