@@ -62,6 +62,7 @@ class PCB(object):
 
         # keep track of timing information
         self._completion = 0
+        self._start = 0
         self._turn_around = 0
         self._waiting = 0
 
@@ -93,6 +94,16 @@ class PCB(object):
     def priority(self):
         """ Return process priority. """
         return self._priority if self._priority else None
+
+    @property
+    def start(self):
+        """ Return process start time. """
+        return self._start
+
+    @start.setter
+    def start(self, new_st):
+        """ Set new start time for process. """
+        self._start = new_st
 
     @property
     def state(self):
