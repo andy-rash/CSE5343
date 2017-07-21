@@ -60,6 +60,11 @@ class PCB(object):
             if '_'+item not in self.__dict__.keys():
                 raise RuntimeError('incomplete PCB values')
 
+        # keep track of timing information
+        self._completion = 0
+        self._turn_around = 0
+        self._waiting = 0
+
     @property
     def arrival(self):
         """ Return process arrival time. """
@@ -69,6 +74,15 @@ class PCB(object):
     def burst(self):
         """ Return process burst time. """
         return self._burst if self._burst else None
+
+    @property
+    def completion(self):
+        """ Return process completion time. """
+        return self._completion
+
+    @completion.setter
+    def completion(self, new_comp):
+        self._completion = int(new_comp)
 
     @property
     def pid(self):
@@ -90,6 +104,25 @@ class PCB(object):
         """ Set new state for a process. """
         if new_st in self.__states.keys():
             self._state = self.__states[new_st]
+
+    @property
+    def turn_around(self):
+        """ Return process turn around time. """
+        return self._turn_around
+
+    @turn_around.setter
+    def turn_around(self, new_ta):
+        """ Set new turn around time for process. """
+        self._turn_around = int(new_ta)
+
+    @property
+    def waiting(self):
+        """ Return process waiting time. """
+
+    @waiting.setter
+    def waiting(self, new_wait):
+        """ Set new waiting time for process. """
+        self._waiting = int(new_wait)
 
     def __eq__(self, comp):
         """ Compare equality of two PCBs. """
