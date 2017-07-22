@@ -282,6 +282,8 @@ class List(object):
 
     def sort(self, key=lambda x: x):
         """ Sort the List. """
+        if self._size <= 1:
+            return
         l = sorted(self, key=key)
         self.clear()
         for item in l:
