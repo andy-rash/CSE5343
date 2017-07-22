@@ -69,12 +69,12 @@ class PCB(object):
     @property
     def arrival(self):
         """ Return process arrival time. """
-        return self._arrival if self._arrival else None
+        return self._arrival
 
     @property
     def burst(self):
         """ Return process burst time. """
-        return self._burst if self._burst else None
+        return self._burst
 
     @property
     def completion(self):
@@ -88,12 +88,12 @@ class PCB(object):
     @property
     def pid(self):
         """ Return process id (PID). """
-        return self._pid if self._pid else None
+        return self._pid
 
     @property
     def priority(self):
         """ Return process priority. """
-        return self._priority if self._priority else None
+        return self._priority
 
     @property
     def start(self):
@@ -108,7 +108,7 @@ class PCB(object):
     @property
     def state(self):
         """ Return current process state. """
-        return self._state if self._state else None
+        return self._state
 
     @state.setter
     def state(self, new_st):
@@ -129,6 +129,7 @@ class PCB(object):
     @property
     def waiting(self):
         """ Return process waiting time. """
+        return self._waiting
 
     @waiting.setter
     def waiting(self, new_wait):
